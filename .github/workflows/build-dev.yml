@@ -58,7 +58,7 @@ jobs:
 
   send-telegram-message:
     name: 📢 Send Telegram message
-    needs: [build-docker-image]
+    needs: [ build-docker-image ]
     runs-on: ubuntu-latest
     steps:
       - name: 🔧 Checkout source code
@@ -79,7 +79,7 @@ jobs:
   notify-on-error:
     name: 📢 Send Telegram message
     runs-on: ubuntu-latest
-    needs: [build-docker-image]
+    needs: [ build-docker-image ]
     if: failure()
     steps:
       - name: 🔧 Checkout source code
