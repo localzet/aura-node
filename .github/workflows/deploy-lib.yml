@@ -1,0 +1,86 @@
+name: Deploy lib
+on:
+  push:
+    paths:
+      - 'libs/**/package.json'
+      - '.github/workflows/deploy-lib.yml'
+
+jobs:
+  send-start-deploy-telegram-message:
+    name: Send Telegram message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Send Telegram message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            🏹 Deploy ${{ github.REPOSITORY }} npm package has started
+            commit message: ${{ github.event.head_commit.message }}
+            author: ${{ github.event.head_commit.author.name }}
+            commit timestamp: ${{ github.event.head_commit.timestamp }}
+
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies and build
+        working-directory: './libs/contract'
+        run: npm i && npm run prepublish
+
+      - name: Publish package on NPM
+        working-directory: './libs/contract'
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  send-telegram-message:
+    name: Send Telegram message
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Send Telegram message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ✅ ${{ github.REPOSITORY }} npm package published
+            image tag: *${{ github.sha }}*
+            commit message: ${{ github.event.head_commit.message }}
+            author: ${{ github.event.head_commit.author.name }}
+            commit timestamp: ${{ github.event.head_commit.timestamp }}
+
+  notify-on-error:
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: failure()
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Send error notification
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ❌ ${{ github.REPOSITORY }} deploy NPM package failed.

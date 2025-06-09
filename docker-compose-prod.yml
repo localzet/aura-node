@@ -1,0 +1,9 @@
+services:
+  aura-node:
+    container_name: aura-node
+    hostname: aura-node
+    image: localzet/aura-node:latest
+    env_file:
+      - .env
+    network_mode: host
+    restart: always
