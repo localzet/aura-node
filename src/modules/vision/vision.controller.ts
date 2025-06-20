@@ -1,10 +1,10 @@
 import { Body, Controller, Post, UseFilters, UseGuards } from '@nestjs/common';
 
-import { VISION_CONTROLLER, VISION_ROUTES } from '@libs/contracts/api/controllers/vision';
+import { VISION_CONTROLLER, VISION_ROUTES } from '@localzet/aura-contract';
 import { PortGuard } from '@common/guards/request-port-guard/request-port.guard';
 import { HttpExceptionFilter } from '@common/exception/httpException.filter';
 import { errorHandler } from '@common/helpers/error-handler.helper';
-import { XRAY_INTERNAL_API_PORT } from '@libs/contracts/constants';
+import { XRAY_INTERNAL_API_PORT } from '@localzet/aura-contract';
 import { OnPort } from '@common/decorators/port/port.decorator';
 
 import { UnblockIpRequestDto, UnblockIpResponseDto } from './dtos/unblock-ip.dto';

@@ -17,9 +17,6 @@
       "@common/*": [
         "./src/common/*"
       ],
-      "@libs/contracts/*": [
-        "./libs/contract/*"
-      ],
       "@xray-protos/*": [
         "./src/xray-protos/*"
       ]

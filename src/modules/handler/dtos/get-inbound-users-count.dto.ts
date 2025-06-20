@@ -1,6 +1,6 @@
 import { createZodDto } from 'nestjs-zod';
 
-import { GetInboundUsersCountCommand } from '@libs/contracts/commands/handler';
+import { GetInboundUsersCountCommand } from '@localzet/aura-contract';
 
 export class GetInboundUsersCountRequestDto extends createZodDto(
     GetInboundUsersCountCommand.RequestSchema,

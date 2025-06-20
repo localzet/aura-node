@@ -3,7 +3,7 @@ import { Body, Controller, Get, Post, UseFilters, UseGuards } from '@nestjs/comm
 import { HttpExceptionFilter } from '@common/exception/httpException.filter';
 import { JwtDefaultGuard } from '@common/guards/jwt-guards/def-jwt-guard';
 import { errorHandler } from '@common/helpers/error-handler.helper';
-import { STATS_CONTROLLER, STATS_ROUTES } from '@libs/contracts/api/controllers/stats';
+import { STATS_CONTROLLER, STATS_ROUTES } from '@localzet/aura-contract';
 
 import {
     GetAllInboundsStatsRequestDto,

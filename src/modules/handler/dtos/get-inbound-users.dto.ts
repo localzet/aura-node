@@ -1,6 +1,6 @@
 import { createZodDto } from 'nestjs-zod';
 
-import { GetInboundUsersCommand } from '@libs/contracts/commands/handler';
+import { GetInboundUsersCommand } from '@localzet/aura-contract';
 
 export class GetInboundUsersRequestDto extends createZodDto(GetInboundUsersCommand.RequestSchema) {}
 export class GetInboundUsersResponseDto extends createZodDto(

@@ -3,7 +3,7 @@ import { Body, Controller, Get, Ip, Logger, Post, UseFilters, UseGuards } from '
 import { HttpExceptionFilter } from '@common/exception/httpException.filter';
 import { JwtDefaultGuard } from '@common/guards/jwt-guards/def-jwt-guard';
 import { errorHandler } from '@common/helpers/error-handler.helper';
-import { XRAY_CONTROLLER, XRAY_ROUTES } from '@libs/contracts/api/controllers/xray';
+import { XRAY_CONTROLLER, XRAY_ROUTES } from '@localzet/aura-contract';
 
 import {
     GetNodeHealthCheckResponseDto,

@@ -7,7 +7,7 @@ import { InjectXtls } from '@localzet/xtls-sdk-nestjs';
 import { XtlsApi } from '@localzet/xtls-sdk';
 
 import { ICommandResponse } from '@common/types/command-response.type';
-import { ERRORS } from '@libs/contracts/constants/errors';
+import { ERRORS } from '@localzet/aura-contract';
 
 import { AddUserResponseModel, RemoveUserResponseModel } from './models';
 import { GetInboundUsersCountResponseModel } from './models';

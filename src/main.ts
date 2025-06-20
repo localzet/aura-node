@@ -15,8 +15,8 @@ import { customLogFilter } from '@common/utils/filter-logs/filter-logs';
 import { parseNodePayload } from '@common/utils/decode-node-payload';
 import { getStartMessage } from '@common/utils/get-start-message';
 import { isDevelopment } from '@common/utils/is-development';
-import { XRAY_INTERNAL_API_PORT, XRAY_INTERNAL_FULL_PATH } from '@libs/contracts/constants';
-import { REST_API, ROOT } from '@libs/contracts/api';
+import { XRAY_INTERNAL_API_PORT, XRAY_INTERNAL_FULL_PATH } from '@localzet/aura-contract';
+import { REST_API, NODE_ROOT } from '@localzet/aura-contract';
 
 import { AppModule } from './app.module';
 
@@ -69,7 +69,7 @@ async function bootstrap(): Promise<void> {
 
     app.useGlobalFilters(new NotFoundExceptionFilter());
 
-    app.setGlobalPrefix(ROOT, {
+    app.setGlobalPrefix(NODE_ROOT, {
         exclude: [
             XRAY_INTERNAL_FULL_PATH,
             '/' + REST_API.VISION.BLOCK_IP,

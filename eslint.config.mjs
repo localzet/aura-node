@@ -65,7 +65,6 @@ export default [
                         'localzet',
                         'aliasCommon',
                         { newlinesBetween: 'never' },
-                        'aliasLibs',
                         'aliasIntegrationModules',
                         'aliasModules',
                         'aliasScheduler',
@@ -80,7 +79,6 @@ export default [
                         value: {
                             aliasModules: '@modules/*.',
                             aliasCommon: '@common/*.',
-                            aliasLibs: '@libs/*.',
                             aliasIntegrationModules: '@integration-modules/*.',
                             aliasScheduler: '@scheduler/*.',
                             aliasQueue: '@queue/*.',

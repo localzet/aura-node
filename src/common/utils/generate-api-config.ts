@@ -3,7 +3,7 @@ import {
     XRAY_DEFAULT_POLICY_MODEL,
     XRAY_DEFAULT_STATS_MODEL,
     XRAY_ROUTING_RULES_MODEL,
-} from '@libs/contracts/constants/xray';
+} from '@localzet/aura-contract';
 
 export const generateApiConfig = (config: Record<string, unknown>): Record<string, unknown> => {
     const routing = config.routing as undefined | { rules?: unknown[] };

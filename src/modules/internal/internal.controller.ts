@@ -7,7 +7,7 @@ import {
     XRAY_INTERNAL_API_CONTROLLER,
     XRAY_INTERNAL_API_PATH,
     XRAY_INTERNAL_API_PORT,
-} from '@libs/contracts/constants';
+} from '@localzet/aura-contract';
 
 import { InternalService } from './internal.service';
 

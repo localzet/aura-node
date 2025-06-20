@@ -1,6 +1,6 @@
 import { createZodDto } from 'nestjs-zod';
 
-import { GetUserOnlineStatusCommand } from '@libs/contracts/commands';
+import { GetUserOnlineStatusCommand } from '@localzet/aura-contract';
 
 export class GetUserOnlineStatusRequestDto extends createZodDto(
     GetUserOnlineStatusCommand.RequestSchema,

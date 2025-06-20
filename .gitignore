@@ -4,9 +4,6 @@
 .env
 .idea
 /pgdata
-/libs/contract/build
-/libs/contract/node_modules
-/libs/contract/dist
 # Logs
 logs
 *.log

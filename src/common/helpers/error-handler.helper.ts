@@ -1,6 +1,6 @@
 import { InternalServerErrorException } from '@nestjs/common';
 
-import { ERRORS } from '@libs/contracts/constants/errors';
+import { ERRORS } from '@localzet/aura-contract';
 
 import { HttpExceptionWithErrorCodeType } from '../exception/http-exeception-with-error-code.type';
 import { ICommandResponse } from '../types/command-response.type';

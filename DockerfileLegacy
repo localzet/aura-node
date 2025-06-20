@@ -29,7 +29,6 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 
 COPY package*.json ./
-COPY ./libs ./libs
 
 RUN npm ci --omit=dev --legacy-peer-deps \
     && npm cache clean --force
