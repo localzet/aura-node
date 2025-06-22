@@ -1,9 +1,9 @@
 import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-winston';
 import { ZodValidationPipe } from 'nestjs-zod';
 import express, { json } from 'express';
+import * as winston from 'winston';
 import { createLogger } from 'winston';
 import compression from 'compression';
-import * as winston from 'winston';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
@@ -15,8 +15,12 @@ import { customLogFilter } from '@common/utils/filter-logs/filter-logs';
 import { parseNodePayload } from '@common/utils/decode-node-payload';
 import { getStartMessage } from '@common/utils/get-start-message';
 import { isDevelopment } from '@common/utils/is-development';
-import { XRAY_INTERNAL_API_PORT, XRAY_INTERNAL_FULL_PATH } from '@localzet/aura-contract';
-import { REST_API, NODE_ROOT } from '@localzet/aura-contract';
+import {
+    NODE_ROOT,
+    REST_API,
+    XRAY_INTERNAL_API_PORT,
+    XRAY_INTERNAL_FULL_PATH,
+} from '@localzet/aura-contract';
 
 import { AppModule } from './app.module';
 

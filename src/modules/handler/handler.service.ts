@@ -9,12 +9,14 @@ import { XtlsApi } from '@localzet/xtls-sdk';
 import { ICommandResponse } from '@common/types/command-response.type';
 import { ERRORS } from '@localzet/aura-contract';
 
-import { AddUserResponseModel, RemoveUserResponseModel } from './models';
-import { GetInboundUsersCountResponseModel } from './models';
-import { GetInboundUsersResponseModel } from './models';
+import {
+    AddUserResponseModel,
+    GetInboundUsersCountResponseModel,
+    GetInboundUsersResponseModel,
+    RemoveUserResponseModel,
+} from './models';
 import { XrayService } from '../xray-core/xray.service';
-import { IRemoveUserRequest } from './interfaces';
-import { TAddUserRequest } from './interfaces';
+import { IRemoveUserRequest, TAddUserRequest } from './interfaces';
 
 @Injectable()
 export class HandlerService {

@@ -18,7 +18,7 @@ import { ISystemStats } from '@common/utils/get-system-stats/get-system-stats.in
 import { ICommandResponse } from '@common/types/command-response.type';
 import { generateApiConfig } from '@common/utils/generate-api-config';
 import { getSystemStats } from '@common/utils/get-system-stats';
-import { KNOWN_ERRORS, AURA_NODE_KNOWN_ERROR } from '@localzet/aura-contract';
+import { AURA_NODE_KNOWN_ERROR, KNOWN_ERRORS } from '@localzet/aura-contract';
 
 import {
     GetNodeHealthCheckResponseModel,

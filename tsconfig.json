@@ -30,6 +30,6 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "useDefineForClassFields": true,
+    "useDefineForClassFields": true
   }
 }
