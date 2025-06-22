@@ -20,7 +20,7 @@ export class PortGuard implements CanActivate {
         if (!isInternal || !isInternalIp) {
             const response = context.switchToHttp().getResponse();
             response.socket?.destroy();
-            throw new UnauthorizedException('Unauthorized');
+            throw new UnauthorizedException('Не авторизован');
         }
         return isInternal;
     }

@@ -18,11 +18,11 @@ export async function getStartMessage(
 
     return table(
         [
-            ['Docs → https://aura.zorin.space'],
-            [`API Port: ${appPort}\nInternal Ports: 61000, ${internalPort}, 61002`],
-            [`XRay Core: v${xrayInfo.version || 'N/A'}\nXRay Path: ${xrayInfo.path}`],
+            ['Документация: https://aura.zorin.space'],
+            [`API: ${appPort}\nВнутренние порты: 61000, ${internalPort}, 61002`],
+            [`XRay Core: v${xrayInfo.version || 'N/A'}\nПапка: ${xrayInfo.path}`],
             [
-                `SI: ${xrayInfo.systemInfo?.cpuCores}C, ${xrayInfo.systemInfo?.cpuModel}, ${xrayInfo.systemInfo?.memoryTotal}`,
+                `ЦП: ${xrayInfo.systemInfo?.cpuModel} (${xrayInfo.systemInfo?.cpuCores} ядер)\nОЗУ: ${xrayInfo.systemInfo?.memoryTotal}`,
             ],
         ],
         {
@@ -35,7 +35,7 @@ export async function getStartMessage(
             },
             columns: {
                 0: { alignment: 'center' },
-                1: { alignment: 'center' },
+                1: { alignment: 'justify' },
             },
             drawVerticalLine: () => false,
             border: getBorderCharacters('ramac'),

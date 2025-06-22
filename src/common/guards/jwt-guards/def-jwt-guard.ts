@@ -11,11 +11,11 @@ export class JwtDefaultGuard extends AuthGuard('registeredUserJWT') {
             this.logger.debug(`${JSON.stringify(context.switchToHttp().getRequest().headers)}`);
 
             this.logger.error(
-                `Incorrect SSL_CERT or JWT! Request dropped. URL: ${context.switchToHttp().getRequest().url}, IP: ${context.switchToHttp().getRequest().ip}`,
+                `Неверный SSL_CERT или JWT! Запрос отклонён. URL: ${context.switchToHttp().getRequest().url}, IP: ${context.switchToHttp().getRequest().ip}`,
             );
 
             response.socket?.destroy();
-            throw new UnauthorizedException('Unauthorized');
+            throw new UnauthorizedException('Не авторизован');
         }
         return user;
     }

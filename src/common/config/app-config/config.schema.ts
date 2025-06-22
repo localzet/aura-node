@@ -26,7 +26,7 @@ export const configSchema = z
             } catch {
                 ctx.addIssue({
                     code: z.ZodIssueCode.custom,
-                    message: 'Invalid SSL certificate payload',
+                    message: 'Недопустимое содержимое SSL-сертификата',
                 });
             }
         }

@@ -1,11 +1,11 @@
 /**
- * Converts a number to a short string representation.
+ * Преобразует число в краткую строковую форму.
  *
- * This function takes a number and converts it to a string with a suffix
- * ('K' for thousands, 'M' for millions) if the number is large enough.
+ * Эта функция принимает число и преобразует его в строку с суффиксом
+ * ('K' для тысяч, 'M' для миллионов), если число достаточно велико.
  *
- * @param {number} num - The number to convert.
- * @returns {string} The short string representation of the number.
+ * @param {number} num - Число для преобразования.
+ * @returns {string} Краткая строковая форма числа.
  */
 export const getShortNumberFromNumber = (num: number): string => {
     if (num >= 1_000_000) {
