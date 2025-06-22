@@ -68,7 +68,7 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
 
             await this.supervisordApi.getState();
         } catch (error) {
-            this.logger.error(`Error in Application Bootstrap: ${error}`);
+            this.logger.error(`Ошибка в Application Bootstrap: ${error}`);
         }
 
         this.isXrayOnline = false;
@@ -82,13 +82,13 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
 
         try {
             if (this.isXrayStartedProccesing) {
-                this.logger.warn('Request already in progress');
+                this.logger.warn('Запрос уже выполняется');
                 return {
                     isOk: true,
                     response: new StartXrayResponseModel(
                         false,
                         this.xrayVersion,
-                        'Request already in progress',
+                        'Запрос уже выполняется',
                         null,
                     ),
                 };
@@ -101,12 +101,12 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
             this.xtlsConfigInbounds = await this.extractInboundTags(fullConfig);
 
             if (this.configEqualChecking) {
-                this.logger.log('Getting config checksum...');
+                this.logger.log('Получение контрольной суммы конфигурации...');
                 const newChecksum = this.getConfigChecksum(fullConfig);
 
                 if (this.isXrayOnline) {
                     this.logger.warn(
-                        `Xray process is already running with checksum ${this.configChecksum}`,
+                        `Процесс Xray уже запущен с контрольной суммой ${this.configChecksum}`,
                     );
 
                     const oldChecksum = this.configChecksum;
@@ -120,7 +120,7 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
 
                     if (oldChecksum === newChecksum && isXrayOnline) {
                         this.logger.warn(
-                            'Xray is already online with the same config. Skipping...',
+                            'Xray уже онлайн с той же конфигурацией. Пропуск...',
                         );
 
                         return {
@@ -141,11 +141,11 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
             this.internalService.setXrayConfig(fullConfig);
 
             this.logger.log(
-                'XTLS config generated in: ' +
-                    ems(performance.now() - tm, {
-                        extends: 'short',
-                        includeMs: true,
-                    }),
+                'XTLS конфигурация сгенерирована за: ' +
+                ems(performance.now() - tm, {
+                    extends: 'short',
+                    includeMs: true,
+                }),
             );
 
             const xrayProcess = await this.restartXrayProcess();
@@ -178,21 +178,21 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
 
                 this.logger.error(
                     '\n' +
-                        table(
-                            [
-                                ['Version', this.xrayVersion],
-                                ['Checksum', this.configChecksum],
-                                ['Master IP', ip],
-                                ['Internal Status', isStarted],
-                                ['Error', xrayProcess.error],
-                            ],
-                            {
-                                header: {
-                                    content: 'Xray failed to start',
-                                    alignment: 'center',
-                                },
+                    table(
+                        [
+                            ['Версия', this.xrayVersion],
+                            ['Контрольная сумма', this.configChecksum],
+                            ['Мастер IP', ip],
+                            ['Внутренний статус', isStarted],
+                            ['Ошибка', xrayProcess.error],
+                        ],
+                        {
+                            header: {
+                                content: 'Не удалось запустить Xray',
+                                alignment: 'center',
                             },
-                        ),
+                        },
+                    ),
                 );
 
                 return {
@@ -210,19 +210,19 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
 
             this.logger.log(
                 '\n' +
-                    table(
-                        [
-                            ['Version', this.xrayVersion],
-                            ['Checksum', this.configChecksum],
-                            ['Master IP', ip],
-                        ],
-                        {
-                            header: {
-                                content: 'Xray started',
-                                alignment: 'center',
-                            },
+                table(
+                    [
+                        ['Версия', this.xrayVersion],
+                        ['Контрольная сумма', this.configChecksum],
+                        ['Мастер IP', ip],
+                    ],
+                    {
+                        header: {
+                            content: 'Xray запущен',
+                            alignment: 'center',
                         },
-                    ),
+                    },
+                ),
             );
 
             return {
@@ -240,7 +240,7 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
                 errorMessage = error.message;
             }
 
-            this.logger.error(`Failed to start Xray: ${errorMessage}`);
+            this.logger.error(`Не удалось запустить Xray: ${errorMessage}`);
 
             return {
                 isOk: true,
@@ -248,11 +248,11 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
             };
         } finally {
             this.logger.log(
-                'Start XTLS took: ' +
-                    ems(performance.now() - tm, {
-                        extends: 'short',
-                        includeMs: true,
-                    }),
+                'Запуск XTLS занял: ' +
+                ems(performance.now() - tm, {
+                    extends: 'short',
+                    includeMs: true,
+                }),
             );
 
             this.isXrayStartedProccesing = false;
@@ -272,7 +272,7 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
                 response: new StopXrayResponseModel(true),
             };
         } catch (error) {
-            this.logger.error(`Failed to stop Xray Process: ${error}`);
+            this.logger.error(`Не удалось остановить процесс Xray: ${error}`);
             return {
                 isOk: true,
                 response: new StopXrayResponseModel(false),
@@ -292,7 +292,7 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
                 response: new GetXrayStatusAndVersionResponseModel(status, version),
             };
         } catch (error) {
-            this.logger.error(`Failed to get Xray status and version ${error}`);
+            this.logger.error(`Не удалось получить статус и версию Xray ${error}`);
 
             return {
                 isOk: true,
@@ -312,7 +312,7 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
                 ),
             };
         } catch (error) {
-            this.logger.error(`Failed to get node health check: ${error}`);
+            this.logger.error(`Не удалось получить проверку здоровья узла: ${error}`);
 
             return {
                 isOk: true,
@@ -326,7 +326,7 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
             try {
                 await this.supervisordApi.stopProcess(XRAY_PROCESS_NAME, true);
             } catch (error) {
-                this.logger.error(`Response from supervisorctl stop: ${error}`);
+                this.logger.error(`Ответ от supervisorctl stop: ${error}`);
             }
 
             await execa('pkill', ['xray'], { reject: false });
@@ -341,12 +341,12 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
                     await execa('kill', ['-9', stdout.trim()], { reject: false });
                 }
             } catch (e) {
-                this.logger.error(`Failed to kill Xray process: ${e}`);
+                this.logger.error(`Не удалось убить процесс Xray: ${e}`);
             }
 
-            this.logger.log('Killed all Xray processes');
+            this.logger.log('Все процессы Xray убиты');
         } catch (error) {
-            this.logger.log(`No existing Xray processes found. Error: ${error}`);
+            this.logger.log(`Процессы Xray не найдены. Ошибка: ${error}`);
         }
     }
 
@@ -354,9 +354,9 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
         try {
             await this.supervisordApi.stopProcess(XRAY_PROCESS_NAME, true);
 
-            this.logger.log('Supervisorctl: XTLS stopped.');
+            this.logger.log('Supervisorctl: XTLS остановлен.');
         } catch (error) {
-            this.logger.log('Supervisorctl: XTLS stop failed. Error: ', error);
+            this.logger.log('Supervisorctl: не удалось остановить XTLS. Ошибка: ', error);
         }
     }
 
@@ -417,13 +417,13 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
                     maxTimeout: 2000,
                     onFailedAttempt: (error) => {
                         this.logger.debug(
-                            `Get Xray internal status attempt ${error.attemptNumber} failed. ${error.retriesLeft} retries left.`,
+                            `Попытка получения внутреннего статуса Xray ${error.attemptNumber} не удалась. Осталось попыток: ${error.retriesLeft}.`,
                         );
                     },
                 },
             );
         } catch (error) {
-            this.logger.error(`Failed to get Xray internal status: ${error}`);
+            this.logger.error(`Не удалось получить внутренний статус Xray: ${error}`);
             return false;
         }
     }
@@ -449,7 +449,7 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
         } catch (error) {
             return {
                 processInfo: null,
-                error: error instanceof Error ? error.message : 'Unknown error',
+                error: error instanceof Error ? error.message : 'Неизвестная ошибка',
             };
         }
     }
@@ -461,7 +461,7 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
 
         return config.inbounds.map((inbound: { tag: string }) => inbound.tag);
     }
-
+    
     public getSavedInboundsTags(): string[] {
         return this.xtlsConfigInbounds;
     }

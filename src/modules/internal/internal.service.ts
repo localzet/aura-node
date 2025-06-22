@@ -16,7 +16,7 @@ export class InternalService {
     }
 
     public setXrayConfig(config: Record<string, unknown>): void {
-        this.logger.debug('Setting new xray config');
+        this.logger.debug('Установка новой конфигурации Xray');
         this.xrayConfig = config;
     }
 }
