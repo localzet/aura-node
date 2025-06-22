@@ -27,7 +27,7 @@ supervisord -c supervisord.conf &
 ```
 
 ```bash
-curl -L https://raw.githubusercontent.com/localzet/aura-node/main/install-latest-xray.sh -o install-xray.sh \
+curl -L https://raw.githubusercontent.com/localzet/aura-node/main/install-xray.sh -o install-xray.sh \
     && chmod +x install-xray.sh \
     && bash ./install-xray.sh \
     && rm install-xray.sh

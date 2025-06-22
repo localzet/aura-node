@@ -20,7 +20,7 @@ RUN apk add --no-cache \
     unzip \
     bash \
     supervisor \
-    && curl -L https://raw.githubusercontent.com/localzet/aura-node/main/install-latest-xray.sh | bash -s -- v25.3.6 \
+    && curl -L https://raw.githubusercontent.com/localzet/aura-node/main/install-xray.sh | bash -s -- v25.3.6 \
     && apk del curl
 
 COPY supervisord.conf /etc/supervisord.conf
