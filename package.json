@@ -20,7 +20,7 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "NODE_ENV=production node dist/src/main",
+    "start:prod": "NODE_ENV=production node dist/main",
     "prepare": "husky",
     "lint": "eslint \"{src,apps,test}/**/*.ts\"",
     "lint:fix": "eslint \"{src,apps,test}/**/*.ts\" --fix",
