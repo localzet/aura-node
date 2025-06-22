@@ -33,4 +33,5 @@ export const configSchema = z
     });
 
 export type ConfigSchema = z.infer<typeof configSchema>;
+
 export class Env extends createZodDto(configSchema) {}

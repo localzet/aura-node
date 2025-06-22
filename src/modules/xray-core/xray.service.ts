@@ -119,9 +119,7 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
                 `);
 
                     if (oldChecksum === newChecksum && isXrayOnline) {
-                        this.logger.warn(
-                            'Xray уже онлайн с той же конфигурацией. Пропуск...',
-                        );
+                        this.logger.warn('Xray уже онлайн с той же конфигурацией. Пропуск...');
 
                         return {
                             isOk: true,
@@ -142,10 +140,10 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
 
             this.logger.log(
                 'XTLS конфигурация сгенерирована за: ' +
-                ems(performance.now() - tm, {
-                    extends: 'short',
-                    includeMs: true,
-                }),
+                    ems(performance.now() - tm, {
+                        extends: 'short',
+                        includeMs: true,
+                    }),
             );
 
             const xrayProcess = await this.restartXrayProcess();
@@ -178,21 +176,21 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
 
                 this.logger.error(
                     '\n' +
-                    table(
-                        [
-                            ['Версия', this.xrayVersion],
-                            ['Контрольная сумма', this.configChecksum],
-                            ['Мастер IP', ip],
-                            ['Внутренний статус', isStarted],
-                            ['Ошибка', xrayProcess.error],
-                        ],
-                        {
-                            header: {
-                                content: 'Не удалось запустить Xray',
-                                alignment: 'center',
+                        table(
+                            [
+                                ['Версия', this.xrayVersion],
+                                ['Контрольная сумма', this.configChecksum],
+                                ['Мастер IP', ip],
+                                ['Внутренний статус', isStarted],
+                                ['Ошибка', xrayProcess.error],
+                            ],
+                            {
+                                header: {
+                                    content: 'Не удалось запустить Xray',
+                                    alignment: 'center',
+                                },
                             },
-                        },
-                    ),
+                        ),
                 );
 
                 return {
@@ -210,19 +208,19 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
 
             this.logger.log(
                 '\n' +
-                table(
-                    [
-                        ['Версия', this.xrayVersion],
-                        ['Контрольная сумма', this.configChecksum],
-                        ['Мастер IP', ip],
-                    ],
-                    {
-                        header: {
-                            content: 'Xray запущен',
-                            alignment: 'center',
+                    table(
+                        [
+                            ['Версия', this.xrayVersion],
+                            ['Контрольная сумма', this.configChecksum],
+                            ['Мастер IP', ip],
+                        ],
+                        {
+                            header: {
+                                content: 'Xray запущен',
+                                alignment: 'center',
+                            },
                         },
-                    },
-                ),
+                    ),
             );
 
             return {
@@ -249,10 +247,10 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
         } finally {
             this.logger.log(
                 'Запуск XTLS занял: ' +
-                ems(performance.now() - tm, {
-                    extends: 'short',
-                    includeMs: true,
-                }),
+                    ems(performance.now() - tm, {
+                        extends: 'short',
+                        includeMs: true,
+                    }),
             );
 
             this.isXrayStartedProccesing = false;
@@ -461,7 +459,7 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
 
         return config.inbounds.map((inbound: { tag: string }) => inbound.tag);
     }
-    
+
     public getSavedInboundsTags(): string[] {
         return this.xtlsConfigInbounds;
     }

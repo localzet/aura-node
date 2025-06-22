@@ -5,6 +5,7 @@ import { GetAllInboundsStatsCommand, GetAllOutboundsStatsCommand } from '@localz
 export class GetAllOutboundsStatsRequestDto extends createZodDto(
     GetAllInboundsStatsCommand.RequestSchema,
 ) {}
+
 export class GetAllOutboundsStatsResponseDto extends createZodDto(
     GetAllOutboundsStatsCommand.ResponseSchema,
 ) {}

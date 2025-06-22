@@ -20,6 +20,7 @@ import { IGetUserOnlineStatusRequest } from './interfaces';
 @Injectable()
 export class StatsService {
     constructor(@InjectXtls() private readonly xtlsSdk: XtlsApi) {}
+
     private readonly logger = new Logger(StatsService.name);
 
     public async getUserOnlineStatus(

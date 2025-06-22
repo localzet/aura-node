@@ -33,14 +33,18 @@ export class HandlerService {
             const inboundsTags = this.xrayService.getSavedInboundsTags();
 
             for (const tag of inboundsTags) {
-                this.logger.debug(`Удаление пользователя: ${requestData[0].username} из тега: ${tag}`);
+                this.logger.debug(
+                    `Удаление пользователя: ${requestData[0].username} из тега: ${tag}`,
+                );
                 await this.xtlsApi.handler.removeUser(tag, requestData[0].username);
             }
 
             for (const item of requestData) {
                 let tempRes = null;
 
-                this.logger.debug(`Добавление пользователя: ${item.username} с типом: ${item.type}`);
+                this.logger.debug(
+                    `Добавление пользователя: ${item.username} с типом: ${item.type}`,
+                );
 
                 switch (item.type) {
                     case 'trojan':
@@ -77,7 +81,9 @@ export class HandlerService {
             }
 
             if (response.every((res) => !res.isOk)) {
-                this.logger.error('Ошибка при добавлении пользователей: ' + JSON.stringify(response, null, 2));
+                this.logger.error(
+                    'Ошибка при добавлении пользователей: ' + JSON.stringify(response, null, 2),
+                );
                 return {
                     isOk: true,
                     response: new AddUserResponseModel(
