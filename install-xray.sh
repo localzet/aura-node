@@ -16,55 +16,30 @@ check_if_running_as_root() {
 identify_the_operating_system_and_architecture() {
     if [[ "$(uname)" == 'Linux' ]]; then
         case "$(uname -m)" in
-            'i386' | 'i686')
-                ARCH='32'
-            ;;
-            'amd64' | 'x86_64')
-                ARCH='64'
-            ;;
-            'armv5tel')
-                ARCH='arm32-v5'
-            ;;
+            'i386' | 'i686') ARCH='32' ;;
+            'amd64' | 'x86_64') ARCH='64' ;;
+            'armv5tel') ARCH='arm32-v5' ;;
             'armv6l')
                 ARCH='arm32-v6'
                 grep Features /proc/cpuinfo | grep -qw 'vfp' || ARCH='arm32-v5'
-            ;;
+                ;;
             'armv7' | 'armv7l')
                 ARCH='arm32-v7a'
                 grep Features /proc/cpuinfo | grep -qw 'vfp' || ARCH='arm32-v5'
-            ;;
-            'armv8' | 'aarch64')
-                ARCH='arm64-v8a'
-            ;;
-            'mips')
-                ARCH='mips32'
-            ;;
-            'mipsle')
-                ARCH='mips32le'
-            ;;
+                ;;
+            'armv8' | 'aarch64') ARCH='arm64-v8a' ;;
+            'mips') ARCH='mips32' ;;
+            'mipsle') ARCH='mips32le' ;;
             'mips64')
                 ARCH='mips64'
                 lscpu | grep -q "Little Endian" && ARCH='mips64le'
-            ;;
-            'mips64le')
-                ARCH='mips64le'
-            ;;
-            'ppc64')
-                ARCH='ppc64'
-            ;;
-            'ppc64le')
-                ARCH='ppc64le'
-            ;;
-            'riscv64')
-                ARCH='riscv64'
-            ;;
-            's390x')
-                ARCH='s390x'
-            ;;
-            *)
-                echo "error: The architecture is not supported."
-                exit 1
-            ;;
+                ;;
+            'mips64le') ARCH='mips64le' ;;
+            'ppc64') ARCH='ppc64' ;;
+            'ppc64le') ARCH='ppc64le' ;;
+            'riscv64') ARCH='riscv64' ;;
+            's390x') ARCH='s390x' ;;
+            *) echo "error: The architecture is not supported."; exit 1 ;;
         esac
     else
         echo "error: This operating system is not supported."
@@ -89,7 +64,7 @@ download_xray() {
 extract_xray() {
     if ! unzip -q "$ZIP_FILE" -d "$TMP_DIRECTORY"; then
         echo 'error: Xray decompression failed.'
-        "rm" -rf "$TMP_DIRECTORY"
+        rm -rf "$TMP_DIRECTORY"
         echo "removed: $TMP_DIRECTORY"
         exit 1
     fi
@@ -101,7 +76,16 @@ place_xray() {
     install -d "/usr/local/share/xray/"
     install -m 644 "${TMP_DIRECTORY}/geoip.dat" "/usr/local/share/xray/geoip.dat"
     install -m 644 "${TMP_DIRECTORY}/geosite.dat" "/usr/local/share/xray/geosite.dat"
-    echo "Xray files installed"
+    echo "Xray core files installed"
+}
+
+download_custom_dat_files() {
+    echo "Downloading latest geoip/geosite dat files..."
+    wget -q -O "/usr/local/share/xray/geoip.dat" https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
+    wget -q -O "/usr/local/share/xray/geosite.dat" https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
+    wget -q -O "/usr/local/share/xray/geoip_RU.dat" https://github.com/runetfreedom/russia-v2ray-rules-dat/releases/latest/download/geoip.dat
+    wget -q -O "/usr/local/share/xray/geosite_RU.dat" https://github.com/runetfreedom/russia-v2ray-rules-dat/releases/latest/download/geosite.dat
+    echo "Custom .dat files downloaded and placed in /usr/local/share/xray/"
 }
 
 check_if_running_as_root
@@ -113,5 +97,6 @@ ZIP_FILE="${TMP_DIRECTORY}/Xray-linux-$ARCH.zip"
 download_xray
 extract_xray
 place_xray
+download_custom_dat_files
 
-"rm" -rf "$TMP_DIRECTORY"
+rm -rf "$TMP_DIRECTORY"
