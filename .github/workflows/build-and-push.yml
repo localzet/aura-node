@@ -115,6 +115,10 @@ jobs:
   create-release:
     needs: [ build-docker-image ]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
     steps:
       - name: New Tag
         id: tag

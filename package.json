@@ -1,6 +1,6 @@
 {
   "name": "@localzet/aura-node",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Aura Node",
   "private": false,
   "type": "commonjs",
