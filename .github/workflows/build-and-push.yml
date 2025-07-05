@@ -2,9 +2,6 @@ name: Build & Push Docker Image
 
 on:
   workflow_dispatch:
-  pull_request:
-    tags:
-      - '*'
   push:
     tags:
       - '*'
@@ -27,43 +24,6 @@ jobs:
             Коммит: ${{ github.event.head_commit.message }}
             Автор: ${{ github.event.head_commit.author.name }}
             Время: ${{ github.event.head_commit.timestamp }}
-
-  send-success-message:
-    name: 📢 Send Telegram message
-    needs: [ build-docker-image, create-release ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🔧 Checkout source code
-        uses: actions/checkout@v4
-
-      - name: 📬 Send Telegram message
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-            ✅ Пакет ${{ github.REPOSITORY }} успешно опубликован
-            Тег: *${{ github.sha }}*
-            Коммит: ${{ github.event.head_commit.message }}
-            Автор: ${{ github.event.head_commit.author.name }}
-            Время: ${{ github.event.head_commit.timestamp }}
-
-  send-error-message:
-    name: 📢 Send Telegram message
-    runs-on: ubuntu-latest
-    needs: [ build-docker-image ]
-    if: failure()
-    steps:
-      - name: 🔧 Checkout source code
-        uses: actions/checkout@v4
-
-      - name: 📬 Send Telegram message
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-            ❌ Ошибка в ${{ github.REPOSITORY }}: проблемы в сборке
 
   build-docker-image:
     runs-on: ubuntu-latest
@@ -100,10 +60,11 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 📤 Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v6
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
+          file: Dockerfile
+          platforms: linux/amd64, linux/arm64
           push: true
           tags: |
             localzet/aura-node:latest
@@ -165,3 +126,40 @@ jobs:
             Docker images:
             - `localzet/aura-node:${{github.ref_name}}`
             - `ghcr.io/localzet/aura-node:${{github.ref_name}}`
+
+  send-success-message:
+    name: 📢 Send Telegram message
+    needs: [ build-docker-image, create-release ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔧 Checkout source code
+        uses: actions/checkout@v4
+
+      - name: 📬 Send Telegram message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ✅ Пакет ${{ github.REPOSITORY }} успешно опубликован
+            Тег: *${{ github.sha }}*
+            Коммит: ${{ github.event.head_commit.message }}
+            Автор: ${{ github.event.head_commit.author.name }}
+            Время: ${{ github.event.head_commit.timestamp }}
+
+  send-error-message:
+    name: 📢 Send Telegram message
+    runs-on: ubuntu-latest
+    needs: [ build-docker-image ]
+    if: failure()
+    steps:
+      - name: 🔧 Checkout source code
+        uses: actions/checkout@v4
+
+      - name: 📬 Send Telegram message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ❌ Ошибка в ${{ github.REPOSITORY }}: проблемы в сборке
