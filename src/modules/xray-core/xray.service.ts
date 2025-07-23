@@ -39,9 +39,9 @@ export class XrayService implements OnApplicationBootstrap, OnModuleInit {
 
     private xrayVersion: null | string = null;
     private configChecksum: null | string = null;
-    private isXrayOnline: boolean = false;
+    private isXrayOnline = false;
     private systemStats: ISystemStats | null = null;
-    private isXrayStartedProccesing: boolean = false;
+    private isXrayStartedProccesing = false;
     private xtlsConfigInbounds: Array<string> = [];
 
     constructor(
